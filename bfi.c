@@ -4,8 +4,9 @@
 #include <string.h>
 char*file2str(char*);
 int isbf(char);
-// <>+-[],.
 
+// <>+-[],.
+// Brainfuck interpreter
 int main(int argc, char*argv[]) {
     // Must have ./bfi {filename}
     if (arc != 2) {
@@ -14,7 +15,6 @@ int main(int argc, char*argv[]) {
     }
     // get code
     char *code = file2str(argv[1]);
-    // printf("%s", code);
     
     // init tape
     int tapeSize = 1;
@@ -22,7 +22,7 @@ int main(int argc, char*argv[]) {
     memset(tape, 0, 1); // set it to 0
 
     // init pointer
-    char *ptr = &tape[0];
+    char *ptr = &tape[0]; // pointer starts
     int cur = 0; // current block is index 0
 
     // input char
@@ -39,8 +39,8 @@ int main(int argc, char*argv[]) {
                 cur++; // increase cur
                 // increase size if need to
                 if (cur >= tapeSize) {
-                    tapeSize++;
-                    tape = realloc(tape, tapeSize*sizeof(char));
+                    tapeSize++; // increase size
+                    tape = realloc(tape, tapeSize*sizeof(char)); // allocate memory to new size
                     memset(tape+cur, 0, 1); // set the new block to 0
                 }
                 break;
@@ -64,13 +64,13 @@ int main(int argc, char*argv[]) {
             case ']':
                 // if the current block is zero, pop the stack and move on
                 if (*ptr == 0) {
-                    stackSize--;
-                    stack = realloc(stack, stackSize*(sizeof(int)));
+                    stackSize--; // decrease size
+                    stack = realloc(stack, stackSize*(sizeof(int))); // reallocate memory to smaller size
                     break;
                 }
                 // otherwise, go back to the operater AFTER [
                 else {
-                    i = stack[stackSize-1];
+                    i = stack[stackSize-1]; // set i to the top number in stack
                     break;
                 }
                 break;
@@ -88,7 +88,9 @@ int main(int argc, char*argv[]) {
     free(tape);
 }
 
+// filter out non bf operators
 char *file2str(char* filename) {
+    // open file
     FILE *fp;
     fp = fopen(filename, "r");
     if (!fp) {
@@ -99,7 +101,9 @@ char *file2str(char* filename) {
     char c;
     int size = 0;
     char *out = (char*)malloc(sizeof(char));
+    // loop through file
     do {
+        // if the character is a bf operator, then add it to out
         c = fgetc(fp);
         if (isbf(c)) {
             size++;
@@ -111,6 +115,7 @@ char *file2str(char* filename) {
     return out;
 }
 
+// check if a character is a brainfuck character
 int isbf(char c) {
     // + , - .
     if ('+' <= c && c <= '.') {

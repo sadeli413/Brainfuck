@@ -7,6 +7,11 @@ int isbf(char);
 // <>+-[],.
 
 int main(int argc, char*argv[]) {
+    // Must have ./bfi {filename}
+    if (arc != 2) {
+        printf("Usage: ./bfi {filename}\n");
+        return 1;
+    }
     // get code
     char *code = file2str(argv[1]);
     // printf("%s", code);

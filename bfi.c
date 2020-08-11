@@ -9,7 +9,7 @@ int isbf(char);
 // Brainfuck interpreter
 int main(int argc, char*argv[]) {
     // Must have ./bfi {filename}
-    if (arc != 2) {
+    if (argc != 2) {
         printf("Usage: ./bfi {filename}\n");
         return 1;
     }
@@ -79,8 +79,10 @@ int main(int argc, char*argv[]) {
                 break;
             case ',':
                 // get a single char and put it into the current block
-                printf("Enter a character: ");
-                in = getchar();
+                // do NOT get the \n char
+                do {
+                    in = getchar();
+                } while (getchar() != '\n');
                 *ptr = in;
                 break;
         }

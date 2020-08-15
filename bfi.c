@@ -1,4 +1,5 @@
 // @author Thad Shinno
+// a really good ide https://minond.xyz/brainfuck/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,11 +56,20 @@ int main(int argc, char*argv[]) {
                 (*ptr)--; // decrease current block by one
                 break;
             case '[':
-                // add the index of the operater AFTER [ to the stack
-                stackSize++;
-                stack = realloc(stack, stackSize*sizeof(int));
-                // memset(stack+stackSize-1, i+1, 1);
-                stack[stackSize-1] = i;
+                // enter loop if current pointer is not zero
+                if (*ptr != 0) {
+                    // add the index of the operater AFTER [ to the stack
+                    stackSize++;
+                    stack = realloc(stack, stackSize*sizeof(int));
+                    // memset(stack+stackSize-1, i+1, 1);
+                    stack[stackSize-1] = i;
+                }
+                // otherwise skip the loop
+                else {
+                    while (code[i] != ']') {
+                        i++;
+                    }
+                }
                 break;
             case ']':
                 // if the current block is zero, pop the stack and move on

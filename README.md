@@ -12,7 +12,7 @@ Brainfuck is an esoteric programming language with 8 operators: ```<>+-[],.```
 - "." Print the Ascii character of the value currently pointed to.
 
 ---
-##Programs
+## Programs
 - bfi.c is a brainfuck interpreter written in C. It even supports nested while loops.
-- hello<span></span>.bf is a program written in brainfuck that prints Hello, World! to the terminal. I copied this program from [roachhd](https://gist.github.com/roachhd/dce54bec8ba55fb17d3a)
-- add<span></span>.bf is an original program I wrote. It simply takes an input of two integers, adds them together, and displays the output to terminal. It does not support numbers that add over 9.
+- hello<span></span>.bf is a program written in brainfuck that prints Hello, World! to the terminal. I copied this program from [roachhd](https://gist.github.com/roachhd/dce54bec8ba55fb17d3a), which has a nice brainfuck tutorial.
+- add<span></span>.bf is an original program I wrote. It simply takes an input of two single digit integers, adds them together, and displays the output to terminal. The most difficult part of this program was converting the added result to a two-character output.

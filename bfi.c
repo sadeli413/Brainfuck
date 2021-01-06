@@ -97,7 +97,9 @@ int main(int argc, char*argv[]) {
                 break;
         }
     }
+    free(code);
     free(tape);
+    free(stack);
 }
 
 // filter out non bf operators

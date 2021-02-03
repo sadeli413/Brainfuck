@@ -15,4 +15,5 @@ Brainfuck is an esoteric programming language with 8 operators: ```<>+-[],.```
 ## Programs
 - bfi.c is a brainfuck interpreter written in C. It even supports nested while loops.
 - [roachhd](https://gist.github.com/roachhd/dce54bec8ba55fb17d3a), has a nice brainfuck tutorial.
+- [minond](https://minond.xyz/brainfuck/) has a nice brainfuck ide
 - add<span></span>.bf is an original program I wrote. It simply takes an input of two single digit integers, adds them together, and displays the output to terminal. The most difficult part of this program was converting the added result to a two-character output.

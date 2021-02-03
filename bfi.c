@@ -5,7 +5,6 @@
 #include <string.h>
 char*file2str(char*);
 int isbf(char);
-
 // <>+-[],.
 // Brainfuck interpreter
 int main(int argc, char*argv[]) {
@@ -17,13 +16,13 @@ int main(int argc, char*argv[]) {
     // get code
     char *code = file2str(argv[1]);
     
-    // init tape
+    // init tape as basically an array of unsigned chars
     int tapeSize = 1;
-    char *tape = (char*)malloc(sizeof(char)); // allocate memory
-    memset(tape, 0, 1); // set it to 0
+    unsigned char *tape = (unsigned char*)malloc(sizeof(unsigned char)); // allocate memory
+    memset(tape, 0, sizeof(unsigned char)); // set it to 0
 
     // init pointer
-    char *ptr = &tape[0]; // pointer starts
+    unsigned char *ptr = &tape[0]; // pointer starts
     int cur = 0; // current block is index 0
 
     // input char
@@ -31,6 +30,8 @@ int main(int argc, char*argv[]) {
     // stack to store while [ indexes
     int stackSize = 0;
     int* stack = (int*)malloc(sizeof(int));
+    // skipper to find end of [] loop
+    int skipper = 0;
 
     // execute code
     for (int i = 0; code[i] != '\0'; i++) {
@@ -66,9 +67,16 @@ int main(int argc, char*argv[]) {
                 }
                 // otherwise skip the loop
                 else {
-                    while (code[i] != ']') {
+                    skipper = 1;
+                    do {
                         i++;
-                    }
+                        if (code[i] == '[') {
+                            skipper++;
+                        }
+                        else if (code[i] == ']') {
+                            skipper--;
+                        }
+                    } while (skipper != 0);
                 }
                 break;
             case ']':
